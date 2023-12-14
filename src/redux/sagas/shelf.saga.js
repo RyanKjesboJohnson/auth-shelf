@@ -10,7 +10,10 @@ function* fetchShelf() {
 
     const response = yield axios.get('/api/shelf', config);
 
-    yield put({ type: 'SET_SHELF', payload: response.data });
+    // This is so that we don't get errors when the server hasn't been implemented
+    if (typeof response.data === 'object') {
+      yield put({ type: 'SET_SHELF', payload: response.data });
+    }
   } catch (error) {
     console.log('Shelf get request failed', error);
   }
