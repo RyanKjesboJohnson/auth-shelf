@@ -19,8 +19,22 @@ function* fetchShelf() {
   }
 }
 
+function* submitShelf(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+    yield axios.post('/api/shelf', action.payload, config);
+    yield put({ type: 'FETCH_SHELF' });
+  } catch (error) {
+    console.log('Shelf post request failed', error);
+  }
+}
+
 function* shelfSaga() {
   yield takeLatest('FETCH_SHELF', fetchShelf);
+  yield takeLatest('SUBMIT_SHELF', submitShelf);
 }
 
 export default shelfSaga;
