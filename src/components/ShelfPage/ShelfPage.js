@@ -4,10 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 function ShelfPage() {
   const dispatch = useDispatch();
 
-  const testShelf = [
-    { id: 1, description: 'foo', image_url: 'http://http.cat/100', user_id: 1 },
-  ];
-
   const shelf = useSelector((store) => store.shelf);
 
   useEffect(() => {
