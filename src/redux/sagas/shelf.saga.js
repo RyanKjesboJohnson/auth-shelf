@@ -32,9 +32,23 @@ function* submitShelf(action) {
   }
 }
 
+function* deleteShelf(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+    yield axios.delete(`/api/shelf/${action.payload}`, config);
+    yield put({ type: 'FETCH_SHELF' });
+  } catch (error) {
+    console.log('Shelf delete request failed', error);
+  }
+}
+
 function* shelfSaga() {
   yield takeLatest('FETCH_SHELF', fetchShelf);
   yield takeLatest('SUBMIT_SHELF', submitShelf);
+  yield takeLatest('DELETE_SHELF', deleteShelf);
 }
 
 export default shelfSaga;
